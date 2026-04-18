@@ -1,4 +1,4 @@
-# Vue ![Vue](vue.png)
+# Vue ![Vue](./img/vue.png)
 
 ### Create project
 ```bash
@@ -46,6 +46,14 @@ rm ./src/components/HelloWorld.vue
 rm ./src/components/TheWelcome.vue
 rm ./src/components/WelcomeItem.vue
 rm ./src/views/AboutView.vue
+```
+
+### Create necessary *folders*, *files*
+```bash
+touch ./src/components/AppHeader.vue
+touch ./src/components/AppFooter.vue
+touch ./src/views/Page1View.vue
+touch ./src/views/Page2View.vue
 ```
 
 ### Copy from *exam_basics_task/assets/image/favicon.png* to *public* folder
@@ -127,7 +135,7 @@ import AppFooter from './components/AppFooter.vue'
 </script>
 ```
 
-### Create *src/components/AppHeader.vue*
+### Modify *src/components/AppHeader.vue*
 ```html
 <template>
   <nav class="navbar navbar-expand-sm 
@@ -191,7 +199,7 @@ import AppFooter from './components/AppFooter.vue'
 </style>
 ```
 
-### Create *src/components/AppFooter.vue*
+### Modify *src/components/AppFooter.vue*
 ```html
 <template>
   <div class="container-fluid bg-body-tertiary">
@@ -237,7 +245,7 @@ console.log('Home controller...')
 </style>
 ```
 
-### Create *src/views/Page1View.vue*
+### Modify *src/views/Page1View.vue*
 ```html
 <template>
   <div class="container h-100 scale-in">
@@ -261,7 +269,7 @@ console.log('Page1 controller...')
 </style>
 ```
 
-### Create *src/views/Page2View.vue* 
+### Modify *src/views/Page2View.vue* 
 ```html
 <template>
   <div class="container h-100 scale-in">
