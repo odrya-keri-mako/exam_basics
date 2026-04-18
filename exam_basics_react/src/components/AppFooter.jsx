@@ -1,3 +1,5 @@
+import './AppFooter.css'
+
 export default function AppFooter() {
   console.log('Footer controller...');
   const currentYear = new Date().getFullYear()

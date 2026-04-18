@@ -116,7 +116,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 import { Routes, Route, Navigate } from 'react-router-dom'
 import AppHeader from './components/AppHeader.jsx'
 import AppFooter from './components/AppFooter.jsx'
-import HomePage from './pages/HomePage.jsx'
+import HomePage  from './pages/HomePage.jsx'
 import Page1Page from './pages/Page1Page.jsx'
 import Page2Page from './pages/Page2Page.jsx'
 
@@ -140,26 +140,27 @@ export default function App() {
 
 ### Modify *src/components/AppHeader.jsx*
 ```js
+import './AppHeader.css'
 import { NavLink } from 'react-router-dom'
 
 export default function AppHeader() {
   return (
     <nav className="navbar navbar-expand-sm bg-body-tertiary sticky-top">
       <div className="container-fluid">
-        <button
-          className="navbar-toggler ms-auto"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
+        <button className="navbar-toggler ms-auto"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav"
+                aria-controls="navbarNav"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
 
         <div id="navbarNav" className="collapse navbar-collapse">
           <ul className="navbar-nav mx-auto mt-3 mt-sm-0 text-center">
+
+            {/* Home */}
             <li className="nav-item text-small-caps btn-click-effect rounded">
               <NavLink className="nav-link" to="/home">
                 <i className="fa-solid fa-house me-1"></i>
@@ -167,6 +168,7 @@ export default function AppHeader() {
               </NavLink>
             </li>
 
+            {/* Page1 */}
             <li className="nav-item text-small-caps btn-click-effect rounded">
               <NavLink className="nav-link" to="/page1">
                 <i className="fa-solid fa-face-smile-beam me-1"></i>
@@ -174,6 +176,7 @@ export default function AppHeader() {
               </NavLink>
             </li>
 
+            {/* Page2 */}
             <li className="nav-item text-small-caps btn-click-effect rounded">
               <NavLink className="nav-link" to="/page2">
                 <i className="fa-solid fa-face-grin-tears me-1"></i>
@@ -190,8 +193,10 @@ export default function AppHeader() {
 
 ### Modify *src/components/AppFooter.jsx*
 ```js
+import './AppFooter.css'
+
 export default function AppFooter() {
-  console.log('Footer controller');
+  console.log('Footer controller...');
   const currentYear = new Date().getFullYear()
 
   return (
@@ -207,13 +212,15 @@ export default function AppFooter() {
 
 ### Modify *src/pages/HomePage.jsx*
 ```js
+import './HomePage.css'
+
 export default function HomePage() {
   console.log('Home controller...')
 
   return (
     <div className="container h-100 scale-in">
       <div className="row h-100 align-items-center">
-        <h1 className="text-center text-small-caps display-1 page-title page-title-home">
+        <h1 className="text-center text-small-caps display-1 page-title page-title">
           <i className="fa-solid fa-house me-1"></i>
           <span>Kezdőoldal</span>
         </h1>
@@ -225,13 +232,15 @@ export default function HomePage() {
 
 ### Modify *src/pages/Page1Page.jsx*
 ```js
+import './Page1Page.css'
+
 export default function Page1Page() {
   console.log('Page1 controller...')
 
   return (
     <div className="container h-100 scale-in">
       <div className="row h-100 align-items-center">
-        <h1 className="text-center text-small-caps display-1 page-title page-title-page1">
+        <h1 className="text-center text-small-caps display-1 page-title page-title">
           <i className="fa-solid fa-face-smile-beam me-1"></i>
           <span>Oldal 1</span>
         </h1>
@@ -243,13 +252,15 @@ export default function Page1Page() {
 
 ### Modify *src/pages/Page2Page.jsx*
 ```js
+import './Page2Page.css'
+
 export default function Page2Page() {
   console.log('Page2 controller...')
 
   return (
     <div className="container h-100 scale-in">
       <div className="row h-100 align-items-center">
-        <h1 className="text-center text-small-caps display-1 page-title page-title-page2">
+        <h1 className="text-center text-small-caps display-1 page-title page-title">
           <i className="fa-solid fa-face-grin-tears me-1"></i>
           <span>Oldal 2</span>
         </h1>
@@ -271,36 +282,61 @@ export default function Page2Page() {
 .scale-in {
   animation: scaleIn 0.6s ease both;
 }
-.fs-xs {
-  font-size: 0.75em;
+@keyframes scaleIn {
+  0%   { opacity: 0; transform: scale(0); }
+  25%  { opacity: 0; transform: scale(0); }
+  100% { opacity: 1; transform: scale(1); }
 }
-.page-title-home {
-  color: red;
-}
-.page-title-page1 {
-  color: blue;
-}
-.page-title-page2 {
-  color: green;
-}
+```
+
+### Modify **src/components/AppHeader.css**
+```css
 .nav-item:hover {
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0,.10);
 }
 .nav-link.active {
   text-decoration: underline;
   pointer-events: none;
 }
 .btn-click-effect:not(.disabled):active {
-  animation: btnClickEffect 0.4s;
-}
-@keyframes scaleIn {
-  0% { opacity: 0; transform: scale(0); }
-  25% { opacity: 0; transform: scale(0); }
-  100% { opacity: 1; transform: scale(1); }
+  animation: btnClickEffect .4s;
 }
 @keyframes btnClickEffect {
-  0% { transform: none; }
-  50% { transform: scale(0.9); }
-  100% { transform: none; }
+    0% 	{transform:none;}
+  50% 	{transform:scale(0.9);}
+  100% 	{transform:none;}
 }
+```
+
+### Modify **src/components/AppFooter.css**
+```css
+.fs-xs {
+  font-size: 0.75em;
+}
+```
+
+### Modify **src/pages/HomePage.css**
+```css
+.page-title {
+  color: red;
+}
+```
+
+### Modify **src/pages/Page1Page.css**
+```css
+.page-title {
+  color: blue;
+}
+```
+
+### Modify **src/pages/Page2Page.css**
+```css
+.page-title {
+  color: green;
+}
+```
+
+### Start
+```bash
+npm run dev
 ```

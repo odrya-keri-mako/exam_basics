@@ -1,0 +1,15 @@
+.nav-item:hover {
+  background-color: rgba(0, 0, 0,.10);
+}
+.nav-link.active {
+  text-decoration: underline;
+  pointer-events: none;
+}
+.btn-click-effect:not(.disabled):active {
+  animation: btnClickEffect .4s;
+}
+@keyframes btnClickEffect {
+    0% 	{transform:none;}
+  50% 	{transform:scale(0.9);}
+  100% 	{transform:none;}
+}
