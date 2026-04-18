@@ -8,6 +8,7 @@
 </template>
 
 <script setup>
+console.log('Footer controller...');
 const currentYear = new Date().getFullYear()
 </script>
 

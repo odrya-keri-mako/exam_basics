@@ -211,6 +211,7 @@ import AppFooter from './components/AppFooter.vue'
 </template>
 
 <script setup>
+console.log('Footer controller')
 const currentYear = new Date().getFullYear()
 </script>
 

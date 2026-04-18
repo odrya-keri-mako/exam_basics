@@ -96,8 +96,8 @@
   .controller('footerController', [
     '$scope',
     function($scope) {
-      console.log('Fuuter controller...');
-      $scope.currentYear = (new Date()).getFullYear();
+      console.log('Footer controller...');
+      $scope.currentYear = new Date().getFullYear();
     }
   ]);
 

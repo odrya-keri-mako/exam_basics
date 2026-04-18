@@ -7,7 +7,7 @@
     '$scope',
     function($scope) {
       console.log('Footer controller...');
-      $scope.currentYear = (new Date()).getFullYear();
+      $scope.currentYear = new Date().getFullYear();
     }
   ]);
 

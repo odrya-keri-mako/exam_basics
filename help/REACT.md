@@ -191,6 +191,7 @@ export default function AppHeader() {
 ### Modify *src/components/AppFooter.jsx*
 ```js
 export default function AppFooter() {
+  console.log('Footer controller');
   const currentYear = new Date().getFullYear()
 
   return (
