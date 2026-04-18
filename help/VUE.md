@@ -23,6 +23,8 @@ exam_basics_vue/
 │   │   └── AppHeader.vue
 │   ├── router/
 │   │   └── index.js
+│   ├── stores/
+│   │   └── appState.js
 │   ├── views/
 │   │   ├── HomeView.vue
 │   │   ├── Page1View.vue
@@ -54,6 +56,8 @@ touch ./src/components/AppHeader.vue
 touch ./src/components/AppFooter.vue
 touch ./src/views/Page1View.vue
 touch ./src/views/Page2View.vue
+mkdir -p src/stores
+touch ./src/stores/appState.js
 ```
 
 ### Copy from *exam_basics_task/assets/image/favicon.png* to *public* folder
@@ -93,12 +97,22 @@ import './assets/main.css'
 createApp(App).use(router).mount('#app')
 ```
 
+### Modify *src/stores/appState.js*
+```js
+import { reactive } from 'vue'
+
+export const appState = reactive({
+  pageID: 'home'
+})
+```
+
 ### Modify *src/router/index.js*
 ```js
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import HomeView  from '../views/HomeView.vue'
 import Page1View from '../views/Page1View.vue'
 import Page2View from '../views/Page2View.vue'
+import { appState } from '../stores/appState'
 
 const routes = [
   { path: '/', redirect: '/home' },
@@ -110,6 +124,10 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes
+})
+
+router.afterEach((to) => {
+  appState.pageID = to.name
 })
 
 export default router
@@ -236,7 +254,8 @@ const currentYear = new Date().getFullYear()
 </template>
 
 <script setup>
-console.log('Home controller...')
+import { appState } from '../stores/appState'
+console.log(`${appState.pageID} controller...`);
 </script>
 
 <style scoped>
@@ -260,7 +279,8 @@ console.log('Home controller...')
 </template>
 
 <script setup>
-console.log('Page1 controller...')
+import { appState } from '../stores/appState'
+console.log(`${appState.pageID} controller...`);
 </script>
 
 <style scoped>
@@ -284,7 +304,8 @@ console.log('Page1 controller...')
 </template>
 
 <script setup>
-console.log('Page2 controller...')
+import { appState } from '../stores/appState'
+console.log(`${appState.pageID} controller...`);
 </script>
 
 <style scoped>

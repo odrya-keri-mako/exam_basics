@@ -1,4 +1,4 @@
-import './AppHeader.css'
+import styles from './AppHeader.module.css'
 import { NavLink } from 'react-router-dom'
 
 export default function AppHeader() {
@@ -19,24 +19,33 @@ export default function AppHeader() {
           <ul className="navbar-nav mx-auto mt-3 mt-sm-0 text-center">
 
             {/* Home */}
-            <li className="nav-item text-small-caps btn-click-effect rounded">
-              <NavLink className="nav-link" to="/home">
+            <li className={`nav-item text-small-caps rounded 
+                            ${styles.navItem} ${styles.btnClickEffect}`}>
+              <NavLink  to="/home"
+                        className={({ isActive }) =>
+                          `nav-link ${isActive ? styles.activeLink : ''}`}>
                 <i className="fa-solid fa-house me-1"></i>
                 <span>Kezdőoldal</span>
               </NavLink>
             </li>
 
             {/* Page1 */}
-            <li className="nav-item text-small-caps btn-click-effect rounded">
-              <NavLink className="nav-link" to="/page1">
+            <li className={`nav-item text-small-caps rounded 
+                            ${styles.navItem} ${styles.btnClickEffect}`}>
+              <NavLink  to="/page1"
+                        className={({ isActive }) =>
+                          `nav-link ${isActive ? styles.activeLink : ''}`}>
                 <i className="fa-solid fa-face-smile-beam me-1"></i>
                 <span>Oldal 1</span>
               </NavLink>
             </li>
 
             {/* Page2 */}
-            <li className="nav-item text-small-caps btn-click-effect rounded">
-              <NavLink className="nav-link" to="/page2">
+            <li className={`nav-item text-small-caps rounded 
+                            ${styles.navItem} ${styles.btnClickEffect}`}>
+              <NavLink  to="/page2"
+                        className={({ isActive }) =>
+                          `nav-link ${isActive ? styles.activeLink : ''}`}>
                 <i className="fa-solid fa-face-grin-tears me-1"></i>
                 <span>Oldal 2</span>
               </NavLink>

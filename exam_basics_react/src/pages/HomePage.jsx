@@ -1,14 +1,20 @@
-import './HomePage.css'
+import styles from './HomePage.module.css'
+import { useEffect } from 'react'
+import { useAppContext } from '../context/AppContext.jsx'
 
 export default function HomePage() {
-  console.log('Home controller...')
 
+  const { pageID } = useAppContext();
+
+  useEffect(() => {
+    console.log(`${pageID} controller...`);
+  }, [pageID]);
+  
   return (
     <div className="container h-100 scale-in">
       <div className="row h-100 align-items-center">
-        <h1 className="text-center text-small-caps display-1 page-title page-title">
-          <i className="fa-solid fa-house me-1"></i>
-          <span>Kezdőoldal</span>
+        <h1 className={`text-center text-small-caps display-1 ${styles.pageTitle}`}>
+          Kezdőoldal
         </h1>
       </div>
     </div>

@@ -23,6 +23,8 @@ exam_basics_react/
 │   │   ├── AppHeader.css
 │   │   ├── AppFooter.jsx
 │   │   └── AppFooter.css
+│   ├── context/
+│   │   └── AppContext.jsx
 │   ├── pages/
 │   │   ├── HomePage.jsx
 │   │   ├── HomePage.css
@@ -55,16 +57,18 @@ rm ./src/assets/vite.svg
 touch ./src/assets/main.css
 mkdir -p src/components
 touch ./src/components/AppHeader.jsx
-touch ./src/components/AppHeader.css
+touch ./src/components/AppHeader.module.css
 touch ./src/components/AppFooter.jsx
-touch ./src/components/AppFooter.css
+touch ./src/components/AppFooter.module.css
+mkdir -p src/context
+touch ./src/context/AppContext.jsx
 mkdir -p src/pages
 touch ./src/pages/HomePage.jsx
-touch ./src/pages/HomePage.css
+touch ./src/pages/HomePage.module.css
 touch ./src/pages/Page1Page.jsx
-touch ./src/pages/Page1Page.css
+touch ./src/pages/Page1Page.module.css
 touch ./src/pages/Page2Page.jsx
-touch ./src/pages/Page2Page.css
+touch ./src/pages/Page2Page.module.css
 ```
 
 ### Copy from *exam_basics_task/assets/image/favicon.png* to *public* folder
@@ -111,36 +115,61 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 )
 ```
 
+### Modify *src/context/AppContext.jsx*
+```js
+import { createContext, useContext } from 'react'
+
+export const AppContext = createContext(null)
+
+export function useAppContext() {
+  return useContext(AppContext)
+}
+```
+
 ### Modify *src/App.jsx*
 ```js
-import { Routes, Route, Navigate } from 'react-router-dom'
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
+import { AppContext } from './context/AppContext.jsx'
 import AppHeader from './components/AppHeader.jsx'
 import AppFooter from './components/AppFooter.jsx'
-import HomePage  from './pages/HomePage.jsx'
+import HomePage from './pages/HomePage.jsx'
 import Page1Page from './pages/Page1Page.jsx'
 import Page2Page from './pages/Page2Page.jsx'
 
+function getPageID(pathname) {
+  if (pathname === '/home') return 'home'
+  if (pathname === '/page1') return 'page1'
+  if (pathname === '/page2') return 'page2'
+  return 'home'
+}
+
 export default function App() {
+  
+  const location = useLocation()
+  const pageID = getPageID(location.pathname)
+
   return (
-    <div className="app-container position-relative d-flex flex-column vh-100 overflow-x-hidden overflow-y-auto">
-      <AppHeader />
-      <main className="position-relative flex-fill">
-        <Routes>
-          <Route path="/" element={<Navigate to="/home" replace />} />
-          <Route path="/home" element={<HomePage />} />
-          <Route path="/page1" element={<Page1Page />} />
-          <Route path="/page2" element={<Page2Page />} />
-        </Routes>
-      </main>
-      <AppFooter />
-    </div>
+    <AppContext.Provider value={{ pageID }}>
+      <div className="app-container position-relative d-flex flex-column vh-100 overflow-x-hidden overflow-y-auto">
+        <AppHeader />
+        <main className="position-relative flex-fill">
+          <Routes>
+            <Route path="/" element={<Navigate to="/home" replace />} />
+            <Route path="/home" element={<HomePage />} />
+            <Route path="/page1" element={<Page1Page />} />
+            <Route path="/page2" element={<Page2Page />} />
+          </Routes>
+        </main>
+        <AppFooter />
+      </div>
+    </AppContext.Provider>
   )
 }
 ```
 
 ### Modify *src/components/AppHeader.jsx*
 ```js
-import './AppHeader.css'
+import styles from './AppHeader.module.css'
 import { NavLink } from 'react-router-dom'
 
 export default function AppHeader() {
@@ -161,24 +190,33 @@ export default function AppHeader() {
           <ul className="navbar-nav mx-auto mt-3 mt-sm-0 text-center">
 
             {/* Home */}
-            <li className="nav-item text-small-caps btn-click-effect rounded">
-              <NavLink className="nav-link" to="/home">
+            <li className={`nav-item text-small-caps rounded 
+                            ${styles.navItem} ${styles.btnClickEffect}`}>
+              <NavLink  to="/home"
+                        className={({ isActive }) =>
+                          `nav-link ${isActive ? styles.activeLink : ''}`}>
                 <i className="fa-solid fa-house me-1"></i>
                 <span>Kezdőoldal</span>
               </NavLink>
             </li>
 
             {/* Page1 */}
-            <li className="nav-item text-small-caps btn-click-effect rounded">
-              <NavLink className="nav-link" to="/page1">
+            <li className={`nav-item text-small-caps rounded 
+                            ${styles.navItem} ${styles.btnClickEffect}`}>
+              <NavLink  to="/page1"
+                        className={({ isActive }) =>
+                          `nav-link ${isActive ? styles.activeLink : ''}`}>
                 <i className="fa-solid fa-face-smile-beam me-1"></i>
                 <span>Oldal 1</span>
               </NavLink>
             </li>
 
             {/* Page2 */}
-            <li className="nav-item text-small-caps btn-click-effect rounded">
-              <NavLink className="nav-link" to="/page2">
+            <li className={`nav-item text-small-caps rounded 
+                            ${styles.navItem} ${styles.btnClickEffect}`}>
+              <NavLink  to="/page2"
+                        className={({ isActive }) =>
+                          `nav-link ${isActive ? styles.activeLink : ''}`}>
                 <i className="fa-solid fa-face-grin-tears me-1"></i>
                 <span>Oldal 2</span>
               </NavLink>
@@ -193,7 +231,7 @@ export default function AppHeader() {
 
 ### Modify *src/components/AppFooter.jsx*
 ```js
-import './AppFooter.css'
+import styles from './AppFooter.module.css'
 
 export default function AppFooter() {
   console.log('Footer controller...');
@@ -201,7 +239,7 @@ export default function AppFooter() {
 
   return (
     <div className="container-fluid bg-body-tertiary">
-      <p className="fw-lighter fs-xs text-center mb-0 py-2">
+      <p className={`fw-lighter text-center mb-0 py-2 ${styles.fsXs}`}>
         <span>&copy; Copyright&nbsp;&nbsp;2021-{currentYear}</span>
         <span className="ms-2">Keri Informatika, Makó</span>
       </p>
@@ -212,17 +250,23 @@ export default function AppFooter() {
 
 ### Modify *src/pages/HomePage.jsx*
 ```js
-import './HomePage.css'
+import styles from './HomePage.module.css'
+import { useEffect } from 'react'
+import { useAppContext } from '../context/AppContext.jsx'
 
 export default function HomePage() {
-  console.log('Home controller...')
 
+  const { pageID } = useAppContext();
+
+  useEffect(() => {
+    console.log(`${pageID} controller...`);
+  }, [pageID]);
+  
   return (
     <div className="container h-100 scale-in">
       <div className="row h-100 align-items-center">
-        <h1 className="text-center text-small-caps display-1 page-title page-title">
-          <i className="fa-solid fa-house me-1"></i>
-          <span>Kezdőoldal</span>
+        <h1 className={`text-center text-small-caps display-1 ${styles.pageTitle}`}>
+          Kezdőoldal
         </h1>
       </div>
     </div>
@@ -232,17 +276,23 @@ export default function HomePage() {
 
 ### Modify *src/pages/Page1Page.jsx*
 ```js
-import './Page1Page.css'
+import styles from './Page1Page.module.css'
+import { useEffect } from 'react'
+import { useAppContext } from '../context/AppContext.jsx'
 
 export default function Page1Page() {
-  console.log('Page1 controller...')
 
+  const { pageID } = useAppContext();
+  
+  useEffect(() => {
+    console.log(`${pageID} controller...`);
+  }, [pageID]);
+  
   return (
     <div className="container h-100 scale-in">
       <div className="row h-100 align-items-center">
-        <h1 className="text-center text-small-caps display-1 page-title page-title">
-          <i className="fa-solid fa-face-smile-beam me-1"></i>
-          <span>Oldal 1</span>
+        <h1 className={`text-center text-small-caps display-1 ${styles.pageTitle}`}>
+          Oldal 1
         </h1>
       </div>
     </div>
@@ -252,17 +302,23 @@ export default function Page1Page() {
 
 ### Modify *src/pages/Page2Page.jsx*
 ```js
-import './Page2Page.css'
+import styles from './Page2Page.module.css'
+import { useEffect } from 'react'
+import { useAppContext } from '../context/AppContext.jsx'
 
 export default function Page2Page() {
-  console.log('Page2 controller...')
 
+  const { pageID } = useAppContext();
+  
+  useEffect(() => {
+    console.log(`${pageID} controller...`);
+  }, [pageID]);
+  
   return (
     <div className="container h-100 scale-in">
       <div className="row h-100 align-items-center">
-        <h1 className="text-center text-small-caps display-1 page-title page-title">
-          <i className="fa-solid fa-face-grin-tears me-1"></i>
-          <span>Oldal 2</span>
+        <h1 className={`text-center text-small-caps display-1 ${styles.pageTitle}`}>
+          Oldal 2
         </h1>
       </div>
     </div>
@@ -289,49 +345,49 @@ export default function Page2Page() {
 }
 ```
 
-### Modify **src/components/AppHeader.css**
+### Modify **src/components/AppHeader.module.css**
 ```css
-.nav-item:hover {
-  background-color: rgba(0, 0, 0,.10);
+.navItem:hover {
+  background-color: rgba(0, 0, 0, 0.1);
 }
-.nav-link.active {
-  text-decoration: underline;
+.activeLink {
+  text-decoration: underline !important;
   pointer-events: none;
 }
-.btn-click-effect:not(.disabled):active {
-  animation: btnClickEffect .4s;
+.btnClickEffect:not(.disabled):active {
+  animation: btnClickEffect 0.4s;
 }
 @keyframes btnClickEffect {
-    0% 	{transform:none;}
-  50% 	{transform:scale(0.9);}
-  100% 	{transform:none;}
+  0%   { transform: none; }
+  50%  { transform: scale(0.9); }
+  100% { transform: none; }
 }
 ```
 
-### Modify **src/components/AppFooter.css**
+### Modify **src/components/AppFooter.module.css**
 ```css
-.fs-xs {
+.fsXs {
   font-size: 0.75em;
 }
 ```
 
-### Modify **src/pages/HomePage.css**
+### Modify **src/pages/HomePage.module.css**
 ```css
-.page-title {
+.pageTitle {
   color: red;
 }
 ```
 
-### Modify **src/pages/Page1Page.css**
+### Modify **src/pages/Page1Page.module.css**
 ```css
-.page-title {
+.pageTitle {
   color: blue;
 }
 ```
 
-### Modify **src/pages/Page2Page.css**
+### Modify **src/pages/Page2Page.module.css**
 ```css
-.page-title {
+.pageTitle {
   color: green;
 }
 ```

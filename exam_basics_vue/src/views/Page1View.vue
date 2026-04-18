@@ -10,7 +10,8 @@
 </template>
 
 <script setup>
-console.log('Page1 controller...')
+import { appState } from '../stores/appState'
+console.log(`${appState.pageID} controller...`);
 </script>
 
 <style scoped>
