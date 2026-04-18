@@ -1,0 +1,54 @@
+<nav class="navbar navbar-expand-sm bg-body-tertiary">
+  <div class="container-fluid">
+
+    <!-- Hamburger icon -->
+    <button class="navbar-toggler ms-auto" 
+            type="button" 
+            data-bs-toggle="collapse" 
+            data-bs-target="#navbarNav" 
+            aria-controls="navbarNav" 
+            aria-expanded="false" 
+            aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar collapse -->
+    <div  id="navbarNav"
+          class="collapse navbar-collapse">
+
+      <!-- Navbar centered -->
+      <ul class="navbar-nav mx-auto mt-3 mt-sm-0 text-center">
+
+        <!-- Home -->
+        <li class="nav-item text-small-caps btn-click-effect rounded">
+          <a class="nav-link" 
+             ui-sref="home"
+             ui-sref-active="active">
+            <i class="fa-solid fa-house me-1"></i>
+            <span>Kezdőoldal</span>
+          </a>
+        </li>
+
+        <!-- Page1 -->
+        <li class="nav-item text-small-caps btn-click-effect rounded">
+          <a class="nav-link" 
+             ui-sref="page1"
+             ui-sref-active="active">
+            <i class="fa-solid fa-face-smile-beam me-1"></i>
+            <span>Oldal 1</span>
+          </a>
+        </li>
+
+        <!-- Page2 -->
+        <li class="nav-item text-small-caps btn-click-effect rounded">
+          <a class="nav-link" 
+             ui-sref="page2"
+             ui-sref-active="active">
+            <i class="fa-solid fa-face-grin-tears me-1"></i>
+            <span>Oldal 2</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
