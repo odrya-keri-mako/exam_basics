@@ -6,4 +6,4 @@
   - https://github.com/odrya-keri-mako/components.git
 
 - Modern web frameworks (Angular, React, Vue, Svelte)
-  - Node.js 18+ (recommended 20+)
+  - Node.js 22.12+ (recommended v24+)

@@ -1,0 +1,20 @@
+<template>
+  <div class="container h-100 scale-in">
+    <div class="row h-100 align-items-center">
+      <h1 class="text-center text-small-caps display-1 page-title">
+        <i class="fa-solid fa-house me-1"></i>
+        <span>Kezdőoldal</span>
+      </h1>
+    </div>
+  </div>
+</template>
+
+<script setup>
+console.log('Home controller...')
+</script>
+
+<style scoped>
+.page-title {
+  color: red;
+}
+</style>
