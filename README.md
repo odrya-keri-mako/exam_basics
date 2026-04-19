@@ -7,3 +7,9 @@
 
 - Modern web frameworks (Angular, React, Vue, Svelte)
   - Node.js 22.12+ (recommended v24+)
+
+![AngularJs](./help/img/angularJs.png)
+![Angular](./help/img/angular.png)
+![Vue](./help/img/vue.png)
+![React](./help/img/react.png)
+![Svelte](./help/img/svelte.png)

@@ -1,6 +1,6 @@
 <script>
   import { pageID } from '$lib/stores/app-state.js';
-  console.log('Page1 controller...');
+  console.log(`${pageID} controller...`);
 </script>
 
 <div class="container h-100 scale-in">
