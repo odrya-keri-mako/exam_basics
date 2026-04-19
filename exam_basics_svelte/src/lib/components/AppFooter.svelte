@@ -1,0 +1,10 @@
+<script>
+  const currentYear = new Date().getFullYear();
+</script>
+
+<div class="container-fluid bg-body-tertiary">
+  <p class="fw-lighter fs-xs text-center mb-0 py-2">
+    <span>&copy; Copyright&nbsp;&nbsp;2021-{currentYear}</span>
+    <span class="ms-2">Keri Informatika, Makó</span>
+  </p>
+</div>
